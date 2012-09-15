@@ -29,6 +29,7 @@
     how to use it.
 
     Author: Miguel Olivares <miguel@moliware.com>
+    Modifications by Aaron Cannon <cannona@fireantproductions.com>
 """
 import sys
 
@@ -47,7 +48,7 @@ glacier <command> [args]
     Commands
         vaults    - Operations with vaults
         jobs      - Operations with jobs
-        upload    - Upload files to a vault. If the vault doesn't exits, it is
+        upload    - Upload files to a vault. If the vault doesn't exist, it is
                     created
 
     Common args:
@@ -92,8 +93,12 @@ def connect(region, debug_level=0, access_key=None, secret_key=None):
 
 def list_vaults(region, access_key=None, secret_key=None):
     layer2 = connect(region, access_key, secret_key)
-    for vault in layer2.list_vaults():
-        print vault.arn
+    vaults = layer2.list_vaults()
+    if vaults:
+        for vault in vaults:
+            print vault.arn
+    else:
+        print "No vaults were found."
 
 
 def list_jobs(vault_name, region, access_key=None, secret_key=None):
