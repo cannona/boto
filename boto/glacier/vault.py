@@ -89,7 +89,7 @@ class Vault(object):
         """
         with open(filename, 'rb') as fileobj:
             linear_hash, tree_hash = compute_hashes_from_fileobj(fileobj)
-        response = self.layer1.upload_archive(self.name, open(filename), linear_hash,
+        response = self.layer1.upload_archive(self.name, open(filename, 'rb'), linear_hash,
                                               tree_hash)
         return response['ArchiveId']
 
